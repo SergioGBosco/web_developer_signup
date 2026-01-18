@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react"
+import { useMemo, useRef, useState } from "react"
 
 function App() {
 
@@ -7,12 +7,14 @@ function App() {
   const symbols = "!@#$%^&*()-_=+[]{}|;:'\\,.<?>/`~";
 
   7
-  const [nomeCompleto, setNomeCompleto] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [specializzazione, setSpecializzazione] = useState("");
-  const [esperienze, setEsperienze] = useState("");
   const [descrizione, setDescrizione] = useState("");
+
+
+  const nomeCompletoRef = useRef();
+  const specializzazioneRef = useRef();
+  const esperienzeRef = useRef();
 
 
   const usernameValida = useMemo(() => {
@@ -42,6 +44,11 @@ function App() {
 
   const handlesummit = e => {
     e.preventDefault();
+
+    const nomeCompleto = nomeCompletoRef.current.value;
+    const specializzazione = specializzazioneRef.current.value;
+    const esperienze = esperienzeRef.current.value;
+
     if (
       !nomeCompleto.trim() ||
       !username.trim() ||
@@ -74,8 +81,7 @@ function App() {
         <label>
           <h3>Nome Completo</h3>
           <input type="text"
-            value={nomeCompleto}
-            onChange={(e) => setNomeCompleto(e.target.value)}
+            ref={nomeCompletoRef}
           />
         </label>
         <label>
@@ -106,8 +112,7 @@ function App() {
         <label>
           <h3>Specializzazione</h3>
           <select
-            value={specializzazione}
-            onChange={(e) => setSpecializzazione(e.target.value)}
+            ref={specializzazioneRef}
           >
             <option value="Full Stack">Full Stack</option>
             <option value="Frontend">Frontend</option>
@@ -117,8 +122,7 @@ function App() {
         <label>
           <h3>Anni di Esperienza</h3>
           <input type="number"
-            value={esperienze}
-            onChange={(e) => setEsperienze(e.target.value)}
+            ref={esperienzeRef}
           />
         </label>
         <label>
